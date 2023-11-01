@@ -173,8 +173,8 @@ func (g Gotunl) GetProfile(id string) (string, string) {
 	if auth != "" && strings.Contains(prof.Conf, "password_mode") && mode != "" {
 		auth = mode
 	}
-	if runtime.GOOS == "darwin" {
-		command := "security find-generic-password -w -s pritunl -a " + id
+	if runtime.GOOS == "darwin" && mode != "" {
+		command := "security find-generic-password -w -s pritunl  -a " + id
 		out, err := exec.Command("bash", "-c", command).Output()
 		if err != nil {
 			if strings.Contains("exit status 36", err.Error()) {
